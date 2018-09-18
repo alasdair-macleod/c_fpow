@@ -198,6 +198,7 @@ double attribute_hidden pbeta(double, double, double, int, int);
 double attribute_hidden pchisq(double, double, int, int);
 double attribute_hidden pf(double, double, double, int, int);
 double attribute_hidden pgamma(double, double, double, int, int);
+double attribute_hidden ppois(double, double, int, int);
 double attribute_hidden qbeta(double, double, double, int, int);
 double attribute_hidden qpois(double, double, int, int);
 double attribute_hidden dbinom_raw(double, double, double, double, int);
