@@ -189,6 +189,7 @@ int attribute_hidden chebyshev_init(double*, int, double);
 double attribute_hidden chebyshev_eval(double, const double*, const int);
 double attribute_hidden dbeta(double, double, double, int);
 double attribute_hidden dpois(double, double, int);
+double attribute_hidden dpois_raw(double, double, int);
 double attribute_hidden fmax2(double, double);
 double attribute_hidden fmin2(double, double);
 double attribute_hidden lbeta(double, double);
