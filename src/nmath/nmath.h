@@ -40,17 +40,11 @@
 #include <math.h>
 #include <float.h> /* DBL_MIN etc */
 
-#include <Rconfig.h>
-#include <Rmath.h>
 
 /* Used internally only */
 double  Rf_d1mach(int);
 double	Rf_gamma_cody(double);
 
-#include <R_ext/RS.h>
-
-/* possibly needed for debugging */
-#include <R_ext/Print.h>
 
 /* moved from dpq.h */
 #ifdef HAVE_NEARYINT
@@ -63,7 +57,6 @@ double	Rf_gamma_cody(double);
 
 #ifndef MATHLIB_STANDALONE
 
-#include <R_ext/Error.h>
 # define MATHLIB_ERROR(fmt,x)		error(fmt,x);
 # define MATHLIB_WARNING(fmt,x)		warning(fmt,x)
 # define MATHLIB_WARNING2(fmt,x,x2)	warning(fmt,x,x2)
@@ -71,7 +64,6 @@ double	Rf_gamma_cody(double);
 # define MATHLIB_WARNING4(fmt,x,x2,x3,x4) warning(fmt,x,x2,x3,x4)
 # define MATHLIB_WARNING5(fmt,x,x2,x3,x4,x5) warning(fmt,x,x2,x3,x4,x5)
 
-#include <R_ext/Arith.h>
 #define ML_POSINF	R_PosInf
 #define ML_NEGINF	R_NegInf
 #define ML_NAN		R_NaN
@@ -184,37 +176,35 @@ int R_finite(double);
 
 /* Formerly private part of Mathlib.h */
 
-/* always remap internal functions */
-#define bd0       	Rf_bd0
-#define chebyshev_eval	Rf_chebyshev_eval
-#define chebyshev_init	Rf_chebyshev_init
-#define gammalims	Rf_gammalims
-#define lfastchoose	Rf_lfastchoose
-#define lgammacor	Rf_lgammacor
-#define stirlerr       	Rf_stirlerr
-#define pnchisq_raw   	Rf_pnchisq_raw
-#define pgamma_raw   	Rf_pgamma_raw
-#define pnbeta_raw   	Rf_pnbeta_raw
-#define pnbeta2       	Rf_pnbeta2
-#define bratio       	Rf_bratio
 
-	/* Chebyshev Series */
+double attribute_hidden bd0(double, double);
+double attribute_hidden chebyshev_init(double*, int, double);
+double attribute_hidden chebyshev_eval(double, const double*, const int);
+double attribute_hidden dbeta(double, double, double, int);
+double attribute_hidden dpois(double, double, int);
+double attribute_hidden fmax2(double, double);
+double attribute_hidden fmin2(double, double);
+double attribute_hidden lbeta(double, double);
+double attribute_hidden lgamma(double);
+double attribute_hidden pbeta(double, double, double, int, int);
+double attribute_hidden pchisq(double, double, int, int);
+double attribute_hidden pf(double, double, double, int, int);
+double attribute_hidden pgamma(double, double, double, int, int);
+double attribute_hidden qbeta(double, double, double, int, int);
+double attribute_hidden qpois(double, double, double, int, int);
 
-int	attribute_hidden chebyshev_init(double*, int, double);
-double	attribute_hidden chebyshev_eval(double, const double *, const int);
 
 	/* Gamma and Related Functions */
 
 void	attribute_hidden gammalims(double*, double*);
 double	attribute_hidden lgammacor(double); /* log(gamma) correction */
+double	attribute_hidden lgammafn(double); /* log(gamma) correction */
 double  attribute_hidden stirlerr(double);  /* Stirling expansion "error" */
 
 double	attribute_hidden lfastchoose(double, double);
 
 double  attribute_hidden bd0(double, double);
 
-double  attribute_hidden pnchisq_raw(double, double, double, double, double,
-				     int, Rboolean, Rboolean);
 double  attribute_hidden pgamma_raw(double, double, int, int);
 double	attribute_hidden pbeta_raw(double, double, double, int, int);
 double  attribute_hidden qchisq_appr(double, double, double, int, int, double tol);
