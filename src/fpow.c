@@ -24,6 +24,7 @@ double qpois(double p, double lambda, int lower_tail, int log_p);
 */
 #include "nmath/dpq.h"
 #include "nmath/nmath.h"
+#include "stdio.h"
 
 /*
 2-moment central F approximation; Patnaik P. B. 1949.
@@ -61,7 +62,7 @@ static double guess(double prob, double y, double nu1, double nu2) {
 
   /* In this case there is no solution */
   if (fl < prob) {
-    error("no solution (most likely a bug)");
+    printf("no solution (most likely a bug)");
   }
 
   fu = patnaik2(x, nu1, nu2, lambdau);
@@ -76,7 +77,7 @@ static double guess(double prob, double y, double nu1, double nu2) {
   }
 
   if (itr_cnt == 18) {
-    error("failed to bracket lambda, it is likely to be LARGE");
+    printf("failed to bracket lambda, it is likely to be LARGE");
   }
 
   /* find a better approximation of lambda by bisection */
@@ -102,7 +103,7 @@ static double guess(double prob, double y, double nu1, double nu2) {
   }
 
   if (itr_cnt == 30) {
-    error("failed to find initial guess");
+    printf("failed to find initial guess");
   }
 
   return lambdam;
@@ -196,7 +197,7 @@ static double ncbeta(double prob, double x, double a, double b) {
   while ((fabs(lambda_new-lambda) > eps2*lambda_new)&&(itr_cnt<=10));
 
   if (itr_cnt == 11) {
-    error("newton iteration failed");
+    printf("newton iteration failed");
   }
 
   return lambda_new;
@@ -206,20 +207,20 @@ static double ncbeta(double prob, double x, double a, double b) {
 void fpow(double* type_I, double* type_II, double* nu1, double* nu2, double* lambda) {
 
   if ( ! ( ((*type_I ) >= 0.001) && ((*type_I ) <= 0.999)))
-    error("probabilty of type I error should be between 0.001 and 0.999");
+    printf("probabilty of type I error should be between 0.001 and 0.999");
 
   if ( ! ( ((*type_II) >= 0.001) && ((*type_II) <= 0.999)))
-    error("probabilty of type II error should be between 0.001 and 0.999");
+    printf("probabilty of type II error should be between 0.001 and 0.999");
 
   if ((*nu1)<=0.0)
-    error("nu1 must be positive");
+    printf("nu1 must be positive");
 
   if ((*nu2)<=0.0)
-    error("nu2 must be positive");
+    printf("nu2 must be positive");
 
   if (((*type_I)+(*type_II)) > 0.9999) {
 
-    error("sum of probability of type I and type II error exceeds 0.9999");
+    printf("sum of probability of type I and type II error exceeds 0.9999");
   }
   else {
 

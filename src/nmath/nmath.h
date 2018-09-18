@@ -191,7 +191,7 @@ double attribute_hidden pchisq(double, double, int, int);
 double attribute_hidden pf(double, double, double, int, int);
 double attribute_hidden pgamma(double, double, double, int, int);
 double attribute_hidden qbeta(double, double, double, int, int);
-double attribute_hidden qpois(double, double, double, int, int);
+double attribute_hidden qpois(double, double, int, int);
 
 
 	/* Gamma and Related Functions */
