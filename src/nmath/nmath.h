@@ -21,6 +21,14 @@
 #ifndef MATHLIB_PRIVATE_H
 #define MATHLIB_PRIVATE_H
 
+#include "stdio.h"
+#include "math.h"
+
+#define R_NaN = NAN;
+#define R_PosInf = INFINITY;
+#define R_NegInf = -INFINITY;
+
+
 #ifdef HAVE_CONFIG_H
 #  include <config.h>
 #endif
@@ -57,16 +65,15 @@ double	Rf_gamma_cody(double);
 
 #ifndef MATHLIB_STANDALONE
 
-# define MATHLIB_ERROR(fmt,x)		error(fmt,x);
-# define MATHLIB_WARNING(fmt,x)		warning(fmt,x)
-# define MATHLIB_WARNING2(fmt,x,x2)	warning(fmt,x,x2)
-# define MATHLIB_WARNING3(fmt,x,x2,x3)	warning(fmt,x,x2,x3)
-# define MATHLIB_WARNING4(fmt,x,x2,x3,x4) warning(fmt,x,x2,x3,x4)
-# define MATHLIB_WARNING5(fmt,x,x2,x3,x4,x5) warning(fmt,x,x2,x3,x4,x5)
+# define MATHLIB_ERROR(fmt,x)		printf(fmt,x);
+# define MATHLIB_WARNING(fmt,x)		printf(fmt,x);
+# define MATHLIB_WARNING2(fmt,x,x2)	printf(fmt,x,x2);
+# define MATHLIB_WARNING3(fmt,x,x2,x3)	printf(fmt,x,x2,x3);
+# define MATHLIB_WARNING4(fmt,x,x2,x3,x4) printf(fmt,x,x2,x3,x4);
+# define MATHLIB_WARNING5(fmt,x,x2,x3,x4,x5) printf(fmt,x,x2,x3,x4,x5);
 
-#define ML_POSINF	R_PosInf
-#define ML_NEGINF	R_NegInf
-#define ML_NAN		R_NaN
+#define ML_POSINF	R_PosInf;
+#define ML_NEGINF	R_NegInf;
 
 
 void R_CheckUserInterrupt(void);
