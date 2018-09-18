@@ -22,8 +22,8 @@ double pbeta(double x, double pin, double qin, int lower_tail, int log_p);
 double dpois(double x, double lambda, int give_log);
 double qpois(double p, double lambda, int lower_tail, int log_p);
 */
-#include "R.h"
-#include "Rmath.h"
+#include "nmath/dpq.h"
+#include "nmath/nmath.h"
 
 /*
 2-moment central F approximation; Patnaik P. B. 1949.
