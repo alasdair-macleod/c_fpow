@@ -39,6 +39,7 @@
 
 #include "nmath.h"
 #include "dpq.h"
+#include "types.h"
 
 double dbeta(double x, double a, double b, int give_log)
 {
