@@ -178,7 +178,7 @@ int R_finite(double);
 
 
 double attribute_hidden bd0(double, double);
-double attribute_hidden chebyshev_init(double*, int, double);
+int attribute_hidden chebyshev_init(double*, int, double);
 double attribute_hidden chebyshev_eval(double, const double*, const int);
 double attribute_hidden dbeta(double, double, double, int);
 double attribute_hidden dpois(double, double, int);
