@@ -192,6 +192,8 @@ double attribute_hidden pf(double, double, double, int, int);
 double attribute_hidden pgamma(double, double, double, int, int);
 double attribute_hidden qbeta(double, double, double, int, int);
 double attribute_hidden qpois(double, double, int, int);
+double attribute_hidden dbinom_raw(double, double, double, double, int);
+double attribute_hidden dbinom(double, double, double, int);
 
 
 	/* Gamma and Related Functions */
