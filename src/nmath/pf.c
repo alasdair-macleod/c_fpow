@@ -58,5 +58,5 @@ double pf(double x, double df1, double df2, int lower_tail, int log_p)
 	x = pbeta(df1 * x / (df2 + df1 * x), df1 / 2., df2 / 2.,
 		  lower_tail, log_p);
 
-    return ML_VALID(x) ? x : ML_NAN;
+    return ML_VALID(x) ? x : NAN;
 }

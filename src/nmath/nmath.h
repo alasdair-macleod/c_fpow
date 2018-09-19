@@ -27,6 +27,7 @@
 #define R_NaN = NAN;
 #define R_PosInf = INFINITY;
 #define R_NegInf = -INFINITY;
+# define R_FINITE(x)    isfinite(x)
 
 
 #ifdef HAVE_CONFIG_H
@@ -72,9 +73,34 @@ double	Rf_gamma_cody(double);
 # define MATHLIB_WARNING4(fmt,x,x2,x3,x4) printf(fmt,x,x2,x3,x4);
 # define MATHLIB_WARNING5(fmt,x,x2,x3,x4,x5) printf(fmt,x,x2,x3,x4,x5);
 
-#define ML_POSINF	R_PosInf;
-#define ML_NEGINF	R_NegInf;
+#define ML_POSINF	INFINITY
+#define ML_NEGINF	-INFINITY
 
+#ifndef M_LN_2PI
+#define M_LN_2PI	1.837877066409345483560659472811	/* log(2*pi) */
+#endif
+
+#ifndef M_2PI
+#define M_2PI		6.283185307179586476925286766559	/* 2*pi */
+#endif
+
+#ifndef M_LN_SQRT_2PI
+#define M_LN_SQRT_2PI	0.918938533204672741780329736406	/* log(sqrt(2*pi))
+								 == log(2*pi)/2 */
+#endif
+
+#ifndef M_LN_SQRT_PId2
+#define M_LN_SQRT_PId2	0.225791352644727432363097614947	/* log(sqrt(pi/2)) */
+#endif
+
+
+#ifndef M_1_SQRT_2PI
+#define M_1_SQRT_2PI	0.398942280401432677939946059934	/* 1/sqrt(2pi) */
+#endif
+
+#ifndef M_SQRT_32
+#define M_SQRT_32	5.656854249492380195206754896838	/* sqrt(32) */
+#endif
 
 void R_CheckUserInterrupt(void);
 /* Ei-ji Nakama reported that AIX 5.2 has calloc as a macro and objected
@@ -126,7 +152,7 @@ int R_finite(double);
 #define _(String) String
 #endif /* standalone */
 
-#define ML_VALID(x)	(!ISNAN(x))
+#define ML_VALID(x)	(!isnan(x))
 
 #define ME_NONE		0
 /*	no error */
@@ -141,7 +167,7 @@ int R_finite(double);
 #define ME_UNDERFLOW	16
 /*	and underflow occured (important for IEEE)*/
 
-#define ML_ERR_return_NAN { ML_ERROR(ME_DOMAIN, ""); return ML_NAN; }
+#define ML_ERR_return_NAN { ML_ERROR(ME_DOMAIN, ""); return NAN; }
 
 /* For a long time prior to R 2.3.0 ML_ERROR did nothing.
    We don't report ME_DOMAIN errors as the callers collect ML_NANs into
@@ -187,6 +213,7 @@ int R_finite(double);
 double attribute_hidden bd0(double, double);
 int attribute_hidden chebyshev_init(double*, int, double);
 double attribute_hidden chebyshev_eval(double, const double*, const int);
+double attribute_hidden sinpi(double);
 double attribute_hidden dbeta(double, double, double, int);
 double attribute_hidden dpois(double, double, int);
 double attribute_hidden dpois_raw(double, double, int);
@@ -203,6 +230,10 @@ double attribute_hidden qbeta(double, double, double, int, int);
 double attribute_hidden qpois(double, double, int, int);
 double attribute_hidden dbinom_raw(double, double, double, double, int);
 double attribute_hidden dbinom(double, double, double, int);
+double attribute_hidden dnorm4(double, double, double, int);
+void attribute_hidden pnorm_both(double, double*, double*, int, int);
+double attribute_hidden pnorm5(double, double, double, int, int);
+double attribute_hidden qnorm5(double, double, double, int, int);
 
 
 	/* Gamma and Related Functions */

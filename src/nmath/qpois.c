@@ -40,7 +40,7 @@ do_search(double y, double *z, double p, double lambda, double incr)
 			/* search to the left */
 	for(;;) {
 	    if(y == 0 ||
-	       (*z = ppois(y - incr, lambda, /*l._t.*/TRUE, /*log_p*/FALSE)) < p)
+	       (*z = ppois(y - incr, lambda, /*l._t.*/1, /*log_p*/0)) < p)
 		return y;
 	    y = fmax2(0, y - incr);
 	}
@@ -49,7 +49,7 @@ do_search(double y, double *z, double p, double lambda, double incr)
 
 	for(;;) {
 	    y = y + incr;
-	    if((*z = ppois(y, lambda, /*l._t.*/TRUE, /*log_p*/FALSE)) >= p)
+	    if((*z = ppois(y, lambda, /*l._t.*/1, /*log_p*/0)) >= p)
 		return y;
 	}
     }
@@ -86,10 +86,10 @@ double qpois(double p, double lambda, int lower_tail, int log_p)
     if (p + 1.01*DBL_EPSILON >= 1.) return ML_POSINF;
 
     /* y := approx.value (Cornish-Fisher expansion) :  */
-    z = qnorm(p, 0., 1., /*lower_tail*/TRUE, /*log_p*/FALSE);
+    z = qnorm5(p, 0., 1., /*lower_tail*/1, /*log_p*/0);
     y = nearbyint(mu + sigma * (z + gamma * (z*z - 1) / 6));
 
-    z = ppois(y, lambda, /*lower_tail*/TRUE, /*log_p*/FALSE);
+    z = ppois(y, lambda, /*lower_tail*/1, /*log_p*/0);
 
     /* fuzz to ensure left continuity; 1 - 1e-7 may lose too much : */
     p *= 1 - 64*DBL_EPSILON;

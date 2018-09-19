@@ -544,7 +544,7 @@ dpnorm (double x, int lower_tail, double lp)
 
 	return 1 / sum;
     } else {
-	double d = dnorm (x, 0., 1., FALSE);
+	double d = dnorm4 (x, 0., 1., 0);
 	return d / exp (lp);
     }
 }
@@ -620,7 +620,7 @@ ppois_asymp (double x, double lambda, int lower_tail, int log_p)
 
     f = res12 / elfb;
 
-    np = pnorm (s2pt, 0.0, 1.0, !lower_tail, log_p);
+    np = pnorm5 (s2pt, 0.0, 1.0, !lower_tail, log_p);
 
     if (log_p) {
 	double n_d_over_p = dpnorm (s2pt, !lower_tail, np);
@@ -630,7 +630,7 @@ ppois_asymp (double x, double lambda, int lower_tail, int log_p)
 #endif
 	return np + log1p (f * n_d_over_p);
     } else {
-	double nd = dnorm (s2pt, 0., 1., log_p);
+	double nd = dnorm4 (s2pt, 0., 1., log_p);
 
 #ifdef DEBUG_p
 	REprintf ("pp*_asymp(): f=%.14g	 np=%.14g  nd=%.14g  f*nd=%.14g\n",
