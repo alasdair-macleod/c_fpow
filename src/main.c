@@ -7,8 +7,8 @@ int main()
 {
     double type_I = 0.01;
     double type_II = 0.01;
-    double nu1 = 0.01;
-    double nu2 = 0.01;
+    double nu1 = 1;
+    double nu2 = 2;
     double lambda = 2;
 
 
