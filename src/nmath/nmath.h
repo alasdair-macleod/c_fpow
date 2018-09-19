@@ -102,6 +102,14 @@ double	Rf_gamma_cody(double);
 #define M_SQRT_32	5.656854249492380195206754896838	/* sqrt(32) */
 #endif
 
+#ifndef M_SQRT_PI
+#define M_SQRT_PI	1.772453850905516027298167483341	/* sqrt(pi) */
+#endif
+
+#ifndef M_LOG10_2
+#define M_LOG10_2	0.301029995663981195213738894724	/* log10(2) */
+#endif
+
 void R_CheckUserInterrupt(void);
 /* Ei-ji Nakama reported that AIX 5.2 has calloc as a macro and objected
    to redefining it.  Tests added for 2.2.1 */
@@ -235,7 +243,9 @@ void attribute_hidden pnorm_both(double, double*, double*, int, int);
 double attribute_hidden pnorm5(double, double, double, int, int);
 double attribute_hidden qnorm5(double, double, double, int, int);
 double attribute_hidden R_pow_di(double, int);
-
+double attribute_hidden logspace_add (double, double);
+double attribute_hidden Rf_d1mach(int);
+double attribute_hidden stirlerr(double);
 
 typedef enum { FALSE = 0, TRUE /*, MAYBE */ } Rboolean;
 

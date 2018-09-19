@@ -23,7 +23,6 @@
 #endif
 #include "nmath.h"
 
-#ifdef MATHLIB_STANDALONE
 /*
  *  based on code in ../main/arithmetic.c
  *  used only in standalone Rmath lib.
@@ -61,11 +60,11 @@ double R_pow(double x, double y) /* = x ^ y */
     }
     if (R_FINITE(x) && R_FINITE(y))
 	return(pow(x,y));
-    if (ISNAN(x) || ISNAN(y)) {
+    if (isnan(x) || isnan(y)) {
 #ifdef IEEE_754
 	return(x + y);
 #else
-	return(ML_NAN);
+	return(NAN);
 #endif
     }
     if(!R_FINITE(x)) {
@@ -84,7 +83,7 @@ double R_pow(double x, double y) /* = x ^ y */
 		return((x < 1) ? ML_POSINF : 0.);
 	}
     }
-    return(ML_NAN);		/* all other cases: (-Inf)^{+-Inf,
+    return(NAN);		/* all other cases: (-Inf)^{+-Inf,
 				   non-int}; (neg)^{+-Inf} */
 }
 
@@ -92,7 +91,7 @@ double R_pow_di(double x, int n)
 {
     double pow = 1.0;
 
-    if (ISNAN(x)) return x;
+    if (isnan(x)) return x;
     if (n != 0) {
 	if (!R_FINITE(x)) return R_pow(x, (double)n);
 	if (n < 0) { n = -n; x = 1/x; }
@@ -104,8 +103,6 @@ double R_pow_di(double x, int n)
     return pow;
 }
 
-double NA_REAL = ML_NAN;
-double R_PosInf = ML_POSINF, R_NegInf = ML_NEGINF;
 
 #include <stdio.h>
 #include <stdarg.h>
@@ -117,4 +114,3 @@ void attribute_hidden REprintf(const char *format, ...)
     va_end(ap);
 }
 
-#endif /* MATHLIB_STANDALONE */
