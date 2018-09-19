@@ -246,6 +246,7 @@ double attribute_hidden R_pow_di(double, int);
 double attribute_hidden logspace_add (double, double);
 double attribute_hidden Rf_d1mach(int);
 double attribute_hidden stirlerr(double);
+double attribute_hidden gammafn(double);
 
 typedef enum { FALSE = 0, TRUE /*, MAYBE */ } Rboolean;
 
