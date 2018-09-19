@@ -11,16 +11,9 @@ int main()
     double nu2 = 0.01;
     double lambda = 2;
 
-    double *type_Iptr;
-    double *type_IIptr;
-    double *nu1ptr;
-    double *nu2ptr;
-    double *lambdaptr;
 
-
-    fpow(type_Iptr, type_IIptr, nu1ptr, nu2ptr, lambdaptr);
-    printf("Hello, World! lambda is %f\n", *lambdaptr);
-    printf("Hello, World! lambda is %f\n", lambda);
+    fpow(&type_I, &type_II, &nu1, &nu2, &lambda);
+    printf("\n lambda is %f\n", lambda);
     return 0;
 
 }
