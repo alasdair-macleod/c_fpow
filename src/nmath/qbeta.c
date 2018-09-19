@@ -67,24 +67,7 @@ double qbeta(double alpha, double p, double q, int lower_tail, int log_p)
     return qbet[0];
 }
 
-static const double
-#ifdef IEEE_754
-// CARE: assumes subnormal numbers, i.e., no underflow at DBL_MIN:
-    DBL_very_MIN  = DBL_MIN / 4.,
-    DBL_log_v_MIN = M_LN2*(DBL_MIN_EXP - 2),
-// Too extreme: inaccuracy in pbeta(); e.g for  qbeta(0.95, 1e-9, 20):
-// -> in pbeta() --> bgrat(..... b*z == 0 underflow, hence inaccurate pbeta()
-    /* DBL_very_MIN  = 0x0.0000001p-1022, // = 2^-1050 = 2^(-1022 - 28) */
-    /* DBL_log_v_MIN = -1050. * M_LN2, // = log(DBL_very_MIN) */
-// the most extreme -- not ok, as pbeta() then behaves strangely,
-// e.g., for  qbeta(0.95, 1e-8, 20):
-    /* DBL_very_MIN  = 0x0.0000000000001p-1022, // = 2^-1074 = 2^(-1022 -52) */
-    /* DBL_log_v_MIN = -1074. * M_LN2, // = log(DBL_very_MIN) */
-
-    DBL_1__eps    = 0x1.fffffffffffffp-1; // = 1 - 2^-53
-#else // untested :
-    DBL_1__eps    = 1 - DBL_EPSILON;     // or rather (1 - DBL_EPSILON/2) (??)
-#endif
+static const double DBL_very_MIN  = DBL_MIN / 4., DBL_log_v_MIN = M_LN2*(DBL_MIN_EXP - 2), DBL_1__eps    = 0x1.fffffffffffffp-1; // = 1 - 2^-53
 
 /* set the exponent of acu to -2r-2 for r digits of accuracy */
 /*---- NEW ---- -- still fails for p = 1e11, q=.5*/
@@ -149,7 +132,7 @@ qbeta_raw(double alpha, double p, double q, int lower_tail, int log_p,
 			 log_p ? "[-Inf, 0]" : "[0,1]");
 	// ML_ERR_return_NAN :
 	ML_ERROR(ME_DOMAIN, "");
-	qb[0] = qb[1] = ML_NAN; return;
+	qb[0] = qb[1] = NAN; return;
     }
 
     //  p==0, q==0, p = Inf, q = Inf  <==> treat as one- or two-point mass
@@ -475,12 +458,10 @@ L_Newton:
 	    // delta{y} :   d_y = y - (log_p ? la : a);
 #ifdef IEEE_754
 	    if(!R_FINITE(y) && !(log_p && y == ML_NEGINF))// y = -Inf  is ok if(log_p)
-#else
-	    if (errno)
 #endif
 		{ // ML_ERR_return_NAN :
 		    ML_ERROR(ME_DOMAIN, "");
-		    qb[0] = qb[1] = ML_NAN; return;
+		    qb[0] = qb[1] = NAN; return;
 		}
 
 

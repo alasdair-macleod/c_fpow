@@ -234,7 +234,10 @@ double attribute_hidden dnorm4(double, double, double, int);
 void attribute_hidden pnorm_both(double, double*, double*, int, int);
 double attribute_hidden pnorm5(double, double, double, int, int);
 double attribute_hidden qnorm5(double, double, double, int, int);
+double attribute_hidden R_pow_di(double, int);
 
+
+typedef enum { FALSE = 0, TRUE /*, MAYBE */ } Rboolean;
 
 	/* Gamma and Related Functions */
 
