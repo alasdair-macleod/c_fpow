@@ -8,3 +8,4 @@
 #endif //CFPOW_FPOW_H
 
 void fpow(double*, double*, double*, double*, double*);
+double probf(double, double, double, double);

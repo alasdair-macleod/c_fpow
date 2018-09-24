@@ -228,3 +228,84 @@ void fpow(double* type_I, double* type_II, double* nu1, double* nu2, double* lam
 
 }
 
+double probf(double prob, double x, double a, double b) {
+//    step3 Calculate the greatest k_1 and the lowest k_2 such that (2) and (3) hold.
+//    Step 4. Initializations.
+//    Step 4.2 k = k_2
+//    Step 4.3. µ = λ/2
+//    Step 4.4. c = I_x(a + k,b)
+//    Step 4.5. d = x (1 − x )/(a + k − 1) ⋅ Beta(x,a + k − 1, b)
+//    Step 4.6. (e^-µ k µ^k)/k!
+//    Step 4.7. f = p ⋅ c
+//    Step 4.8. p = k / µ ⋅ p
+//    Step 5. For k = k2 −1, k2 − 2 , …, k_1, do steps 5.1 to 5.5.
+//    Step 5.1. c = c + d
+//    Step 5.2. d = ( a + k )/ (x ⋅(a + k + b − 1))⋅d
+//    Step 5.3. f = f + p ⋅c
+//    Step 5.4. p = k / µ ⋅ p
+//    4.2, 4.9, 5.5, 6, 7, 8; the cdf value is the value of
+//    f obtained in the last evaluation of step 5.3.
+    double ql;
+    double qu;
+    double c;
+    double d;
+    double p;
+    double lambda;
+    double k;
+    double f;
+    double g;
+    double mu;
+    double eps;
+    double eps2;
+    int itr_cnt;
+    lambda= guess(prob, x, 2.0*a, 2.0*b);
+
+    /* FIXME: are these tolerances OK ?  */
+    eps  = 1.0e-7;
+    eps2 = 1.0e-6;
+
+    itr_cnt = 0;
+
+    do {
+
+        mu = lambda/2.0;
+
+        ql = qpois(eps, mu, 1, 0);
+
+        qu = qpois(eps, mu, 0, 0);
+
+        k = qu;
+
+        c = pbeta(x, a+k, b, 1, 0);
+
+        d = x*(1.0-x)/(a+k-1.0)*dbeta(x, a+k-1, b, 0);
+
+        p = dpois(k, mu, 0);
+
+        f=p*c;
+
+        p = k/mu*p;
+
+        for (k = qu-1; k >= ql; --k) {
+
+            c=c+d;
+
+            d=(a+k)/(x*(a+k+b-1))*d;
+
+            f=f+p*c;
+
+            p=k/mu*p;
+        }
+
+        ++itr_cnt;
+    }
+    // while ((fabs(lambda_new-lambda) > eps2*lambda_new)&&(itr_cnt<=10));
+    while (itr_cnt<=10);
+
+    if (itr_cnt == 11) {
+        printf("newton iteration failed");
+    }
+
+    return f;
+}
+

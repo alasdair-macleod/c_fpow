@@ -10,10 +10,14 @@ int main()
     double nu1 = 1;
     double nu2 = 2;
     double lambda = 2;
+    double f = -1;
 
 
     fpow(&type_I, &type_II, &nu1, &nu2, &lambda);
+    f = probf(type_I, type_II, nu1, nu2);
+
     printf("\n lambda is %f\n", lambda);
+    printf("\n p is %f\n", f);
     return 0;
 
 }
