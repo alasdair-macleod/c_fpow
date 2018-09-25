@@ -458,12 +458,12 @@ L_Newton:
 	    // delta{y} :   d_y = y - (log_p ? la : a);
 #ifdef IEEE_754
 	    if(!R_FINITE(y) && !(log_p && y == ML_NEGINF))// y = -Inf  is ok if(log_p)
-#endif
+else
 		{ // ML_ERR_return_NAN :
 		    ML_ERROR(ME_DOMAIN, "");
 		    qb[0] = qb[1] = NAN; return;
 		}
-
+#endif
 
 	    /* w := Newton step size  (F(.) - a) / F'(.)  or,
 	     * --   log: (lF - la) / (F' / F) = exp(lF) * (lF - la) / F'
