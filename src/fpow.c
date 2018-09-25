@@ -228,7 +228,7 @@ void fpow(double* type_I, double* type_II, double* nu1, double* nu2, double* lam
 
 }
 
-double probf(double prob, double x, double a, double b) {
+double probf(double type_I, double a, double b, double lambda) {
 //    step3 Calculate the greatest k_1 and the lowest k_2 such that (2) and (3) hold.
 //    Step 4. Initializations.
 //    Step 4.2 k = k_2
@@ -245,12 +245,13 @@ double probf(double prob, double x, double a, double b) {
 //    Step 5.4. p = k / µ ⋅ p
 //    4.2, 4.9, 5.5, 6, 7, 8; the cdf value is the value of
 //    f obtained in the last evaluation of step 5.3.
+
+    double x = qbeta(type_I, a, b, 0, 0);
     double ql;
     double qu;
     double c;
     double d;
     double p;
-    double lambda;
     double k;
     double f;
     double g;
@@ -258,7 +259,6 @@ double probf(double prob, double x, double a, double b) {
     double eps;
     double eps2;
     int itr_cnt;
-    lambda= guess(prob, x, 2.0*a, 2.0*b);
 
     /* FIXME: are these tolerances OK ?  */
     eps  = 1.0e-7;
@@ -296,10 +296,9 @@ double probf(double prob, double x, double a, double b) {
 
             p=k/mu*p;
         }
-
         ++itr_cnt;
     }
-    // while ((fabs(lambda_new-lambda) > eps2*lambda_new)&&(itr_cnt<=10));
+
     while (itr_cnt<=10);
 
     if (itr_cnt == 11) {

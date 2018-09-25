@@ -5,19 +5,38 @@
 
 int main()
 {
-    double type_I = 0.01;
-    double type_II = 0.01;
-    double nu1 = 1;
-    double nu2 = 2;
-    double lambda = 2;
-    double f = -1;
+    double type_I = 0.05;
+    double a = 0.5;
+    double b = 0.5;
+    double f;
+
+    f = probf(type_I, a, b, 15.848931925);
+    printf("\n prob f is %f\n", f);
+
+    f = probf(type_I, a, b, 25.11886432);
+    printf("\n prob f is %f\n", f);
+
+    f = probf(type_I, a, b, 3981.0717055);
+    printf("\n prob f is %f\n", f);
 
 
-    fpow(&type_I, &type_II, &nu1, &nu2, &lambda);
-    f = probf(type_I, type_II, nu1, nu2);
+    f = probf(0.05,1/2.0,1/2.0,10);
+    printf("\n prob f is %f\n", f);
+    f = probf(0.05,1/2.0,1/2.0,15.848931925);
+    printf("\n prob f is %f\n", f);
+    f = probf(0.05,1/2.0,1/2.0,25.118864315);
+    printf("\n prob f is %f\n", f);
+    f = probf(0.05,1/2.0,1/2.0,39.810717055);
+    printf("\n prob f is %f\n", f);
+    f = probf(0.05,1/2.0,1/2.0,63.095734448);
+    printf("\n prob f is %f\n", f);
+    f = probf(0.05,1/2.0,1/2.0,100);
+    printf("\n prob f is %f\n", f);
+    f = probf(0.05,1/2.0,1/2.0,158.48931925);
+    printf("\n prob f is %f\n", f);
+    f = probf(0.05,1/2.0,1/2.0,251.18864315);
+    printf("\n prob f is %f\n", f);
 
-    printf("\n lambda is %f\n", lambda);
-    printf("\n p is %f\n", f);
     return 0;
 
 }
